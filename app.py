@@ -23,7 +23,11 @@ st.markdown('''<style>.block-container{padding-top:1.2rem}.stMetric{background:#
 
 @st.cache_resource
 def load_eje():
-    data = np.load(ROOT / 'data' / 'eje.npz')
+    eje_path = ROOT / 'data' / 'eje.npz'
+    if not eje_path.is_file():
+        st.error('Falta el archivo data/eje.npz. Suba a GitHub la carpeta data con el archivo eje.npz en su interior, al mismo nivel que app.py.')
+        st.stop()
+    data = np.load(eje_path)
     return {k: data[k] for k in ('lon','lat','pk')}
 
 @st.cache_resource
